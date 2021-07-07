@@ -37,8 +37,8 @@ int win_X_bell;// If win X; = 1
 #include <string>
 #include <sstream>
 
-#include "plot_game_input.h"
-#include "O_learns.h"
+#include "plot_game_board.h"
+#include "play_X_O.h"
 #include "check_game_win.h"
 
 /******************* variables globales *********************/
