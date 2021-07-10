@@ -50,7 +50,7 @@ void O_plays(void)
                     board[i]='O';
                     break;
                     }   
-    }   
+    }
     while(1);
 }
 

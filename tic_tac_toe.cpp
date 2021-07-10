@@ -186,7 +186,7 @@ void loop(void){
 void train(void){
     printf("Training\n");
     Sleep(2000);
-    printf("End training, ready to play");
+    printf("End training, ready to play\n");
 }
 
 
@@ -216,7 +216,7 @@ void main(void)
                                 
                               }
            break;   
-           case 'e': case 'E':{
+           case 'e': case 'E':{//exit
                                 erase_screen();
                                 start_game();
            }
