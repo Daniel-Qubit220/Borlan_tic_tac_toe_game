@@ -29,6 +29,7 @@ int max_moves=8;
 int last_O_move;
 int backpro_count;
 int play_order[9];
+int bars_scale =50;
 
 //----------------------------------------)))
 //    end globals
@@ -46,6 +47,7 @@ int play_order[9];
 #include <sstream>
 
 #include "neural_lib_mmt.h"
+#include "plot_neural_items.h"
 #include "plot_game_board.h"
 #include "play_X_O.h"
 #include "check_game_win.h"
@@ -133,7 +135,7 @@ void init_game_var (void){
 void end_game(void)                   //       ---------------->       END GAME
 {   
     if (!b_flag){
-    moveto(255,110);  
+    moveto(425,110);  
     settextstyle(4,0,4); 
     setcolor(LIGHTBLUE);
     outtext("No Winner");
@@ -159,9 +161,8 @@ void fill_board_noise(void)
 
 void end_game_win_X(void)                   //       ---------------->       END GAME
 {   
- //init_game(); 
     if (!b_flag){
-    moveto(260,110);  
+    moveto(425,110);  
     settextstyle(4,0,4); 
     setcolor(LIGHTBLUE);
     outtext("Win X");
@@ -173,7 +174,7 @@ void end_game_win_X(void)                   //       ---------------->       END
 void end_game_win_O(void)                   //       ---------------->       END GAME
 {   
     if (!b_flag){
-    moveto(260,110);  
+    moveto(425,110);  
     settextstyle(4,0,4); 
     setcolor(LIGHTBLUE);
     outtext("Win O");
@@ -309,7 +310,7 @@ void train(void){
     
      check_game_winner();  
      delay(100);
-     //plot_game_graphics();
+     plot_game_graphics();
                           
      //delay(500);          //ojo con quitar para procesamiento rapido           
     
@@ -330,7 +331,7 @@ void train(void){
      
      if (moves_counter>max_moves) {end_game();}  //    >5     O_learns();        
     
-     //plot_game_graphics();  
+     plot_game_graphics();  
      //print_game_story();
      //print_play_order(); 
      
