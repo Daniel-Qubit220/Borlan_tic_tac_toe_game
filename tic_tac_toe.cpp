@@ -310,7 +310,7 @@ void train(void){
     
      check_game_winner();  
      delay(100);
-     plot_game_graphics();
+     plot_train_game_graphics();
                           
      //delay(500);          //ojo con quitar para procesamiento rapido           
     
@@ -329,9 +329,8 @@ void train(void){
     
      moves_counter++;      
      
-     if (moves_counter>max_moves) {end_game();}  //    >5     O_learns();        
-    
-     plot_game_graphics();  
+     if (moves_counter>max_moves) {end_game();}  //    >5     O_learns();          
+     plot_train_game_graphics();
      //print_game_story();
      //print_play_order(); 
      

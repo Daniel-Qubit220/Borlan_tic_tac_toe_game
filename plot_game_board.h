@@ -114,7 +114,24 @@ void plot_game_graphics(void)
         plot_inputs();
         plot_hidden_outputs();
         plot_outputs();
-        //plot_targets();
-        //plot_couselor_out();
         plot_hidden_weights();
+}
+
+void plot_train_game_graphics(void){
+        erase_screen();
+
+        moveto(225,0); //Title 
+        settextstyle(9,0,2); 
+        setcolor(LIGHTGRAY);
+        outtext("Tic Tac Toe Game");
+        plot_board();
+        plot_board_map();
+
+        plot_inputs();
+        plot_hidden_outputs();
+        plot_outputs();
+        plot_targets();
+        plot_couselor_out();
+        plot_hidden_weights();
+
 }
