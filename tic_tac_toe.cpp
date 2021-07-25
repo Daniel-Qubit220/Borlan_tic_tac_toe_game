@@ -236,7 +236,7 @@ void max_reward(void)
 //-----------------------------------------------------------
 void O_explore(void)                                    
 {
- int i,j;
+ int i,j,c=0;
 //  last_O_move=O_last_move;  
   for(i=0;i<9;i++)        //    explora todos los cuadros
   {
@@ -252,46 +252,40 @@ void O_explore(void)
               fill_inputs();
               feed_forward();    
             
+              for (j=0;j<9;j++) board_temp[j]=board[j]; //se recupera
               fill_board_noise();
               Target[i]=0.1;
               fill_inputs();
               feed_forward();
-              
-              board[last_O_move]='-';  //  se limpia el tablero de la ultima jugada de O
-              for (j=0;j<N_OUT;j++) Target[j]=0.0;  // se limpian todos los targets
-              Target[last_O_move]=0.8;   // se apunta a la ultima jugada de O que condujo a big reward
-
-              //delay(100);
-              fill_inputs();
-              feed_forward();
-              //flash(O_last_move);
-              
-              //noise balance begins
-              for (j=0;j<9;j++) board_temp[j]=board[j]; // se recupera
-              fill_board_noise();
-            
-              fill_inputs();
-              feed_forward();  
               for (j=0;j<9;j++)
               board[j]=board_temp[j];
-            
-              board[last_O_move]='O';
-             }    
-          //delay(500);    
+              
+              if (c==0){
+                  board[last_O_move]='-';  //  se limpia el tablero de la ultima jugada de O
+                  for (j=0;j<N_OUT;j++) Target[j]=0.0;  // se limpian todos los targets
+                  Target[last_O_move]=0.8;   // se apunta a la ultima jugada de O que condujo a big reward
+
+                  fill_inputs();
+                  feed_forward();
+                  
+                  //noise balance begins
+                  for (j=0;j<9;j++) board_temp[j]=board[j]; // se recupera
+                  fill_board_noise();
+                  
+                  Target[last_O_move]=0.1;
+                  fill_inputs();
+                  feed_forward();
+                  for (j=0;j<9;j++)
+                  board[j]=board_temp[j];
+                  board[last_O_move]='O';
+                  c++;
+              }
+             }
           board[i]='-';         
-        }    
-  }    
- 
- 
+        }
+  }
 }
-/*
-void train(void){
-    printf("Training\n");
-    Sleep(2000);
-    printf("End training, ready to play\n");
-}*/
-
-
+//-----------------------------------------------------------
 void train(void){
     printf("Training\n");
     init_game_var();
@@ -300,39 +294,28 @@ void train(void){
      player_selector=player_selector^1;   // se alternan los jugadores      
     
      if(player_selector)  {
-                           if(b_flag && moves_counter>4) O_explore();
+                           if(b_flag) O_explore();
                            O_plays();
-                          }  
+                          }
                     
      if(!player_selector) {
                             X_plays_aut();
                           }                                   
     
-     check_game_winner();  
-     delay(100);
+     check_game_winner();
+
      plot_train_game_graphics();
-                          
-     //delay(500);          //ojo con quitar para procesamiento rapido           
-    
-//    if (moves_counter==6)
-//    {
-//        cout << "ready to explore future = " << moves_counter << endl;
-//        explore_move_6();
-        //getch();
-//    }
+
     if(win_O_bell)
     {
         cout << "last_O_move  " << last_O_move << endl;
         max_reward();
-        //getch();
     }
     
      moves_counter++;      
      
-     if (moves_counter>max_moves) {end_game();}  //    >5     O_learns();          
+     if (moves_counter>max_moves) {end_game();}
      plot_train_game_graphics();
-     //print_game_story();
-     //print_play_order(); 
      
      if(win_O_bell) end_game();
      if(win_X_bell) end_game();
@@ -391,10 +374,19 @@ void main(void)
                                 printf("pesos cargados\n");
            }
            break;
+           case 'R': case 'r':  {
+                                   inicializar_pesos();
+                                   backpro_count=0;
+                                 }
+            break;
+            case 'g': case 'G': {
+                                SalvarPesos();
+                                }
+	       break; 
            case ' ':          {                     //-------    HERE  ! !!!!!!!!!!!!!!!!         !!!!!!!!!!!!1
                                 stop=stop^1;
             }
-            case 'q':          {                     //-------    HERE  ! !!!!!!!!!!!!!!!!         !!!!!!!!!!!!1
+            case 'q': case 'Q':  {
                                 q_flag=q_flag^1;
             }
          }
