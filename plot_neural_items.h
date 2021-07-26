@@ -83,38 +83,18 @@ void plot_targets(void)
 	setcolor(WHITE); //Draw white line
 	setlinestyle(SOLID_LINE,0,0);   
 	line(x,y,x+130,y);     
-
 	for(i=0;i<N_OUT;i++){
 		setcolor(BLUE);  //Plot targets
-		temp= Target[i]*bars_scale;              
+		temp= Target[i]*bars_scale;
+		cout<<Target[i]<<" ";              
 		bar(x,y,x+3,y-temp);         
 		x=x+10;           
-	} 
+	}
+	cout<<endl;
+
 }
 //-------------------------------------------------------------
-void plot_couselor_out(void)
-{
-	int y,x,i,temp; 
 
-	x=10;
-	y=400; 
-
-	setcolor(BLACK); //Erase old couselor out
-	setfillstyle(SOLID_FILL,BLACK);
-	bar(x,y-1,x+200,y-bars_scale);   
-
-	setcolor(WHITE); //Draw white line
-	setlinestyle(SOLID_LINE,0,0);   
-	line(x,y,x+130,y);     
-
-	for(i=0;i<N_OUT;i++) 
-	{
-		setcolor(YELLOW);    
-		temp= counselor_out[i]*bars_scale;              
-		bar(x,y,x+3,y-temp) ;         
-		x=x+10;           
-	} 
-}
 //---------------------------------------------------------------------------------------
 void plot_hidden_weights(void)                           ////       PLOT HIDDEN WEIGHTS
 {

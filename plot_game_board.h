@@ -130,8 +130,6 @@ void plot_train_game_graphics(void){
         plot_inputs();
         plot_hidden_outputs();
         plot_outputs();
-        plot_targets();
-        plot_couselor_out();
         plot_hidden_weights();
 
 }

@@ -82,9 +82,18 @@ void erase_screen(void)
 {
     setcolor(BLACK);  
     setfillstyle(SOLID_FILL,BLACK);     
+    bar(200,0,450,900);         //  200   150   303   253
+    floodfill(255,205,BLACK);    
+}
+
+void erase_screen_all(void)
+{
+    setcolor(BLACK);  
+    setfillstyle(SOLID_FILL,BLACK);     
     bar(0,0,1400,900);         //  200   150   303   253
     floodfill(255,205,BLACK);    
 }
+
    
 //------------------------------------------------------
 
@@ -225,7 +234,8 @@ void max_reward(void)
     Target[last_O_move]=1.0;  
     fill_inputs();
     feed_forward();    
-    
+    plot_targets();
+
     fill_board_noise();
     Target[last_O_move]=0.1;
     fill_inputs();
@@ -313,9 +323,9 @@ void train(void){
     }
     
      moves_counter++;      
-     
-     if (moves_counter>max_moves) {end_game();}
      plot_train_game_graphics();
+     if (moves_counter>max_moves) {end_game();}
+     
      
      if(win_O_bell) end_game();
      if(win_X_bell) end_game();
@@ -354,18 +364,20 @@ void main(void)
        switch (key) {
            case 's': case 'S':{
                                 printf("start_game\n");
+                                erase_screen_all();
                                 loop();
                               }
            break;   
            case 't': case 'T':{
                                 stop=stop^1;
                                 b_flag=b_flag^1;
+                                erase_screen_all();
                                 train();
                                 
                               }
            break;   
            case 'e': case 'E':{//exit
-                                erase_screen();
+                                erase_screen_all();
                                 start_game();
            }
            break;
